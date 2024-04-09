@@ -1,5 +1,6 @@
 import React from "react";
 import { MenuItemModel } from "../../../Interfaces";
+import { Link } from "react-router-dom";
 
 interface Props {
   menuItem: MenuItemModel;
@@ -8,7 +9,10 @@ interface Props {
 function MenuItemCart(props: Props) {
   return (
     <div className="col-lg-4 col-md-6 col-12 g-5">
-      <div className="card"  style={{ boxShadow: "0 1px 7px 0 rgb(0 0 0 / 50%)" }}>
+      <div
+        className="card"
+        style={{ boxShadow: "0 1px 7px 0 rgb(0 0 0 / 50%)" }}
+      >
         <div className=" card-body">
           <div
             className="card-header"
@@ -31,18 +35,26 @@ function MenuItemCart(props: Props) {
               </div>
             </div>
           </div>
-          <img
-            className=" card-img w-100 p-4"
-            src={props.menuItem.image}
-            alt="Not_fetched"
-            style={{ borderRadius: "50%" }}
-          />
+          <Link to={`/MenuItemDetails/${props.menuItem.id}`}>
+            <img
+              className=" card-img w-100 p-4"
+              src={props.menuItem.image}
+              alt="Not_fetched"
+              style={{ borderRadius: "50%" }}
+            />
+          </Link>
           <div className=" card-contennt text-center">
-            <h3 className="card-title text-success">{props.menuItem.name}</h3>
+            <h3 className="card-title text-success">
+              <Link to={`/MenuItemDetails/${props.menuItem.id}`} style={{textDecoration:"none" , color:"inherit"}}>
+                {props.menuItem.name}
+              </Link>
+            </h3>
             <p className="badge bg-secondary" style={{ fontSize: "12px" }}>
-              category
+              {props.menuItem.category}
             </p>
-            <p className="card-text" style={{fontSize:"14px"}}>{props.menuItem.description}</p>
+            <p className="card-text" style={{ fontSize: "14px" }}>
+              {props.menuItem.description}
+            </p>
             <h5 className="card-subtitle">{props.menuItem.price}$</h5>
           </div>
         </div>
