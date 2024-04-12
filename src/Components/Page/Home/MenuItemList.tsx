@@ -5,6 +5,7 @@ import MenuItemCart from './MenuItemCart';
 import { useGetAllMenuItemsQuery } from '../../../Api/MenuItemApi';
 import {useDispatch } from 'react-redux';
 import { setMenuItem } from '../../../Storage/Redux/Slice/MenuItemSlice';
+import { MainLoader } from '../../Common';
 function MenuItemList() {
     //const [menuItems , setMenuItems] = useState<MenuItemModel[]>(() => [])
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function MenuItemList() {
     //warning : React Hook useEffect has missing dependencies: 'data.result' and 'dispatch'. Either include 
     //them or remove the dependency array.
     if(isLoading){
-      return <div>Loading...</div>
+      return <MainLoader></MainLoader>
     }
   // useEffect(() =>{
   //   fetch("https://localhost:7034/api/MenuItem").then((response) =>{

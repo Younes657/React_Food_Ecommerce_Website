@@ -1,12 +1,30 @@
 import React from "react";
 import { MenuItemModel } from "../../../Interfaces";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { useUpsertShoppingCartMutation } from "../../../Api/ShoppingCartApi";
+import { MiniLoader } from "../../Common";
 interface Props {
   menuItem: MenuItemModel;
   key: number;
 }
 function MenuItemCart(props: Props) {
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const [UpsertShoppingCart] = useUpsertShoppingCartMutation();
+
+  const handleAddToShoopingCart = async (menuItemId: number) => {
+    setIsAddingToCart(true);
+
+    const response = await UpsertShoppingCart({
+      MenuId: menuItemId,
+      UpQuaBy: 1,
+      UserId: "09920cdc-9d7a-4346-95d1-800c6cdf7028",
+    });
+    console.log(response);
+    console.log(isAddingToCart);
+    setIsAddingToCart(false);
+  };
+
   return (
     <div className="col-lg-4 col-md-6 col-12 g-5">
       <div
@@ -31,7 +49,14 @@ function MenuItemCart(props: Props) {
                 )}
               </div>
               <div className=" col-3 offset-1 ">
-                <i className="bi bi-cart-plus-fill btn btn-outline-danger "></i>
+                {isAddingToCart ? (
+                  <MiniLoader></MiniLoader>
+                ) : (
+                  <i
+                    className="bi bi-cart-plus-fill btn btn-outline-danger "
+                    onClick={() => handleAddToShoopingCart(props.menuItem.id)}
+                  ></i>
+                )}
               </div>
             </div>
           </div>
@@ -45,7 +70,10 @@ function MenuItemCart(props: Props) {
           </Link>
           <div className=" card-contennt text-center">
             <h3 className="card-title text-success">
-              <Link to={`/MenuItemDetails/${props.menuItem.id}`} style={{textDecoration:"none" , color:"inherit"}}>
+              <Link
+                to={`/MenuItemDetails/${props.menuItem.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 {props.menuItem.name}
               </Link>
             </h3>
