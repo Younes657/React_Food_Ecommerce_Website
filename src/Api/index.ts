@@ -1,4 +1,4 @@
 import { MenuItemApi } from "./MenuItemApi";
 import {ShoppingCartApi} from './ShoppingCartApi'
-
-export {MenuItemApi , ShoppingCartApi} ;
+import AuthenticationApi from './AuthenticationApi';
+export {MenuItemApi , ShoppingCartApi, AuthenticationApi} ;
