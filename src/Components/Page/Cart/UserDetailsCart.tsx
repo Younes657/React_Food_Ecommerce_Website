@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { inputHelper } from '../../../Helper';
+import { UserModel } from '../../../Interfaces';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../Storage/Redux/store';
 type Props ={
   grandTotal:number,
   totalItems:number
 }
 function UserDetailsCart(props:Props) {
+  const userData: UserModel = useSelector((state :RootState )=> state.authentiacationStore)
 
   const initialUserData = {
-    name:'',
-    email:'',
-    phoneNumber:'',
+    name:userData.unique_name,
+    email:userData.email,
+    phoneNumber:''
   }
   const [userInput , setUserInput] = useState(initialUserData);
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{

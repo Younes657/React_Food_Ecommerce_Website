@@ -1,11 +1,12 @@
 import React from "react";
-import { ItemCartModel } from "../../../Interfaces";
-import { useDispatch } from "react-redux";
+import { ItemCartModel, UserModel } from "../../../Interfaces";
+import { useDispatch, useSelector } from "react-redux";
 import {
   RemoveCart,
   updateQuantity,
 } from "../../../Storage/Redux/Slice/ShoppingCartSlice";
 import { useUpsertShoppingCartMutation } from "../../../Api/ShoppingCartApi";
+import { RootState } from "../../../Storage/Redux/store";
 interface Props {
   carts: ItemCartModel;
   key: number;
@@ -14,18 +15,19 @@ interface Props {
 function CartSummary(props: Props) {
   const dispatch = useDispatch();
   const [updateQuantityApi] = useUpsertShoppingCartMutation();
+  const userData: UserModel = useSelector((state :RootState )=> state.authentiacationStore)
 
   const handleQuantity = async (UpQby: number) => {
     if (UpQby === 0 || props.carts.quantity === 1) {
       await updateQuantityApi({
-        UserId: "09920cdc-9d7a-4346-95d1-800c6cdf7028",
+        UserId: userData.sub,
         MenuId: props.carts.menuItemId,
         UpQuaBy: 0,
       });
       dispatch(RemoveCart({ cartItem: props.carts }));
     } else {
       await updateQuantityApi({
-        UserId: "09920cdc-9d7a-4346-95d1-800c6cdf7028",
+        UserId: userData.sub,
         MenuId: props.carts.menuItemId,
         UpQuaBy: UpQby,
       });

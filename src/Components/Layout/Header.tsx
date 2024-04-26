@@ -53,7 +53,7 @@ function Header() {
               <NavLink className="nav-link" to="/ShoppingCart">
                 <i className="bi bi-cart-fill"></i>
                 {"  "}
-                {ItemCarts.length ? `(${ItemCarts.length})` : ""}
+                {userData.sub && `(${ItemCarts.length})`}
               </NavLink>
             </li>
             <li className="nav-item dropdown">

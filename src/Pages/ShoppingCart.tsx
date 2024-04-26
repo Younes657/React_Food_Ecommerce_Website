@@ -3,6 +3,7 @@ import { CartSummary, UserDetailsCart } from "../Components/Page/Cart";
 import { useSelector } from "react-redux";
 import { ItemCartModel } from "../Interfaces";
 import { RootState } from "../Storage/Redux/store";
+import { withAuth } from "../HOC";
 
 function ShoppingCart() {
   const ItemCarts: ItemCartModel[] = useSelector(
@@ -38,4 +39,4 @@ function ShoppingCart() {
   );
 }
 
-export default ShoppingCart;
+export default withAuth(ShoppingCart) ;

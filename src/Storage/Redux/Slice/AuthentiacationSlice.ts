@@ -16,7 +16,7 @@ export const AuthentiacationSlice = createSlice({
       state.sub = action.payload.sub;
       state.email = action.payload.email;
       state.role = action.payload.role;
-      state.unique_name = action.payload.name;
+      state.unique_name = action.payload.unique_name;
     },
   },
 });

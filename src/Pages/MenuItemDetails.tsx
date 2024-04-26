@@ -5,6 +5,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUpsertShoppingCartMutation } from "../Api/ShoppingCartApi";
 import { MainLoader, MiniLoader } from "../Components/Common";
+import { ApiResponse, UserModel } from "../Interfaces";
+import { toast_notification } from "../Helper";
+import { useSelector } from "react-redux";
+import { RootState } from "../Storage/Redux/store";
+
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { data, isLoading } = useGetMenuItemQuery(menuItemId);
@@ -12,18 +17,26 @@ function MenuItemDetails() {
   const [Quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const [UpsertShoppingCart] = useUpsertShoppingCartMutation();
+  const userData: UserModel = useSelector((state : RootState) => state.authentiacationStore)
 
   //09920cdc-9d7a-4346-95d1-800c6cdf7028 user id to use just for now
 
   const handleAddToShoopingCart = async (menuItemId: number) => {
     setIsAddingToCart(true);
 
-    const response = await UpsertShoppingCart({
+    if(!userData.sub ){
+      navigate("/Login")
+      return;
+    }
+
+    const response:ApiResponse = await UpsertShoppingCart({
       MenuId: menuItemId,
       UpQuaBy: Quantity,
-      UserId: "09920cdc-9d7a-4346-95d1-800c6cdf7028",
+      UserId: userData.sub,
     });
-    console.log(response);
+    if (response.data && response.data.isSuccess){
+      toast_notification("Item added successfully to the Shopping cart")
+    }
     console.log(isAddingToCart);
     setIsAddingToCart(false);
   };
@@ -80,10 +93,6 @@ function MenuItemDetails() {
             </span>
             <div className="row pt-4">
               <div className="col-5">
-                <button
-                  className="btn btn-success form-control"
-                  onClick={() => handleAddToShoopingCart(data.result?.id)}
-                >
                   {isAddingToCart ? (
                     <MiniLoader></MiniLoader>
                   ) : (
@@ -94,7 +103,6 @@ function MenuItemDetails() {
                       Add to Cart
                     </button>
                   )}
-                </button>
               </div>
 
               <div className="col-5 ">
