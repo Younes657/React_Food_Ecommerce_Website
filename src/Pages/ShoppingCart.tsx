@@ -32,7 +32,7 @@ function ShoppingCart() {
         </div>
         <div className="col-lg-6 col-12 border pb-3">
           <h3 className=" text-success text-center p-2 border-bottom">User Details</h3>
-          <UserDetailsCart grandTotal= {grandTotal} totalItems = {totalItems}></UserDetailsCart>
+          <UserDetailsCart grandTotal= {grandTotal} totalItems = {totalItems} ></UserDetailsCart>
         </div>
       </div>
     </div>

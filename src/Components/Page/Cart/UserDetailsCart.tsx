@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import { inputHelper } from '../../../Helper';
-import { UserModel } from '../../../Interfaces';
+import { ApiResponse, UserModel } from '../../../Interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../Storage/Redux/store';
+import { MiniLoader } from '../../Common';
+import { useNavigate } from 'react-router-dom';
+import { useInitiatePaymentMutation } from '../../../Api/PaymentApi';
 type Props ={
   grandTotal:number,
-  totalItems:number
+  totalItems:number,
 }
 function UserDetailsCart(props:Props) {
   const userData: UserModel = useSelector((state :RootState )=> state.authentiacationStore)
+  const [isLoading , setIsLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const [initialPayment] = useInitiatePaymentMutation();
 
   const initialUserData = {
     name:userData.unique_name,
@@ -20,8 +27,19 @@ function UserDetailsCart(props:Props) {
       let tempData =  inputHelper(e , userInput)
       setUserInput(tempData)
   }
+  const handlePlaceOrder = async (e:React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault()
+    setIsLoading(true)
+    //we should add payment credential here 
+    const response : ApiResponse = await initialPayment(userData.sub)
+    const OrderSummary = {grandTotal : props.grandTotal ,  totalItems: props.totalItems}
+    console.log(response)
+    navigate('/Payment', {
+      state: {ApiResult : response.data?.result ,OrderSummary , userInput}
+    })
+  }
   return (
-    <form className="col-10 mx-auto">
+    <form className="col-10 mx-auto" onSubmit={handlePlaceOrder}>
     <div className="form-group mt-3">
       Pickup Name
       <input
@@ -69,7 +87,7 @@ function UserDetailsCart(props:Props) {
       type="submit"
       className="btn btn-lg btn-success form-control mt-3"
     >
-      Looks Good? Place Order!
+      {isLoading ?  <MiniLoader></MiniLoader> : "Looks Good? Place Order!"}
     </button>
   </form>
   )

@@ -5,6 +5,7 @@ import {
   Login,
   MenuItemDetails,
   NotFound,
+  Payment,
   Register,
   ShoppingCart,
 } from "../Pages";
@@ -61,6 +62,7 @@ function App() {
           <Route path="/Login" element={<Login></Login>}></Route>
           <Route path="/Register" element={<Register></Register>}></Route>
           <Route path="/AccessDenied" element={<AccessDenied></AccessDenied>}></Route>
+          <Route path="/Payment" element={<Payment></Payment>}></Route>
           <Route path="*" element={<NotFound></NotFound>}></Route>
         </Routes>
       </div>
