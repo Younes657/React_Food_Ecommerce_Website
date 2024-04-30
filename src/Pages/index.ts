@@ -5,4 +5,6 @@ import ShoppingCart from "./ShoppingCart";
 import Login from "./Login";
 import Register from "./Register";
 import Payment from "./Payment";
-export {Home, NotFound , MenuItemDetails, ShoppingCart , Login , Register , Payment}
+import OrderConfirmed from "./Order/OrderConfirmed";
+import UserOrders from "./Order/UserOrders";
+export {Home, NotFound , MenuItemDetails, ShoppingCart , Login , Register , Payment , OrderConfirmed , UserOrders}

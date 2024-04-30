@@ -16,25 +16,29 @@ function Payment() {
     clientSecret: ApiResult.clientSecret,
   };
   return (
-      <Elements stripe={stripePromise} options={options}>
-        <div className="container m-5 p-5">
-          <div className="row">
-            <div className="col-md-7">
-              <OrderSummaryy
-                userInput={userInput}
-                ApiResult={ApiResult}
-                OrderSummary={OrderSummary}
-              ></OrderSummaryy>
-            </div>
-            <div className="col-md-4 offset-md-1">
+    <Elements stripe={stripePromise} options={options}>
+      <div className="container m-5 p-5">
+        <div className="row">
+          <div className="col-md-7">
+            <OrderSummaryy
+              userInput={userInput}
+              ApiResult={ApiResult}
+              OrderSummary={OrderSummary}
+            ></OrderSummaryy>
+          </div>
+          <div className="col-md-4 offset-md-1">
             <h3 className="text-success">Payment</h3>
             <div className="mt-5">
-              <PaymentForm  />
+              <PaymentForm
+                userInput={userInput}
+                Data={ApiResult}
+                OrderSummary={OrderSummary}
+              />
             </div>
           </div>
-          </div>
         </div>
-      </Elements>
+      </div>
+    </Elements>
   );
 }
 

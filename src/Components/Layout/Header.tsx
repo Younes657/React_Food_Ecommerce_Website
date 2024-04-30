@@ -56,6 +56,11 @@ function Header() {
                 {userData.sub && `(${ItemCarts.length})`}
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/Order">
+                Orders
+              </NavLink>
+            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"

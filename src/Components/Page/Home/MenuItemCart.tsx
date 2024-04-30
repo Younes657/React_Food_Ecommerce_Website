@@ -24,7 +24,7 @@ function MenuItemCart(props: Props) {
       navigate("/Login")
       return;
     }
-
+    
     const response :ApiResponse = await UpsertShoppingCart({
       MenuId: menuItemId,
       UpQuaBy: 1,

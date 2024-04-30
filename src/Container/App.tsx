@@ -5,6 +5,8 @@ import {
   Login,
   MenuItemDetails,
   NotFound,
+  OrderConfirmed,
+  UserOrders,
   Payment,
   Register,
   ShoppingCart,
@@ -20,7 +22,9 @@ import AccessDenied from "../Pages/AccessDenied";
 import { RootState } from "../Storage/Redux/store";
 function App() {
   const dispatch = useDispatch();
-  const userData: UserModel = useSelector((state :RootState )=> state.authentiacationStore)
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.authentiacationStore
+  );
   const [skip, setSkip] = useState(true);
 
   useEffect(() => {
@@ -32,9 +36,9 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { data, isLoading } = useGetShoppingCartQuery(
-    userData.sub , { skip : skip}
-  );
+  const { data, isLoading } = useGetShoppingCartQuery(userData.sub, {
+    skip: skip,
+  });
 
   useEffect(() => {
     if (!isLoading && data) dispatch(setCartItems(data.result?.cartItems));
@@ -61,8 +65,18 @@ function App() {
           ></Route>
           <Route path="/Login" element={<Login></Login>}></Route>
           <Route path="/Register" element={<Register></Register>}></Route>
-          <Route path="/AccessDenied" element={<AccessDenied></AccessDenied>}></Route>
+          <Route
+            path="/AccessDenied"
+            element={<AccessDenied></AccessDenied>}
+          ></Route>
           <Route path="/Payment" element={<Payment></Payment>}></Route>
+          <Route path="Order">
+            <Route path="" element={<UserOrders></UserOrders>}></Route>
+            <Route
+              path="OrderConfirmed/:OrderId"
+              element={<OrderConfirmed></OrderConfirmed>}
+            ></Route>
+          </Route>
           <Route path="*" element={<NotFound></NotFound>}></Route>
         </Routes>
       </div>

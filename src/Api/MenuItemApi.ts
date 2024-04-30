@@ -22,33 +22,6 @@ export const MenuItemApi = createApi({
         }),
         providesTags: ["MenuItems"],
       }),
-
-    // addDestination : builder.mutation({
-    //   query: (destination) => ({
-    //     url: "destination",
-    //     method: "POST",
-    //     body: destination,
-    //   }),
-    //   invalidatesTags : ["Destinations"] //so when we are adding a new record the get will also been invoked
-    // }),
-
-    // updateDestination : builder.mutation({
-    //   query: (destination) => ({
-    //     url: `destination/${destination.id}`,
-    //     method: "PUT",
-    //     body: destination,
-    //   }),
-    //   invalidatesTags : ["Destinations"]
-    // }),
-
-    // deleteDestination : builder.mutation({
-    //   query: ({ id }) => ({
-    //     url: `destination/${id}`,
-    //     method: "DELETE",
-    //     body: id,
-    //   }),
-    //   invalidatesTags : ["Destinations"]
-    // })
   }),
 });
 
