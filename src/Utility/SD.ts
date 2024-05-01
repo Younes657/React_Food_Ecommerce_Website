@@ -1,6 +1,6 @@
 export enum SD_Roles {
-  Admin = "Admin",
-  Customer = "Customer",
+  Admin = "admin",
+  Customer = "customer",
 }
 
 export enum SD_Status {

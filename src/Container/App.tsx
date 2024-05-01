@@ -10,6 +10,7 @@ import {
   Payment,
   Register,
   ShoppingCart,
+  AllOrders,
 } from "../Pages";
 import { Routes, Route } from "react-router-dom";
 import { useGetShoppingCartQuery } from "../Api/ShoppingCartApi";
@@ -20,6 +21,7 @@ import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../Storage/Redux/Slice/AuthentiacationSlice";
 import AccessDenied from "../Pages/AccessDenied";
 import { RootState } from "../Storage/Redux/store";
+import { OrderDetails } from "../Components/Page/Order";
 function App() {
   const dispatch = useDispatch();
   const userData: UserModel = useSelector(
@@ -75,6 +77,14 @@ function App() {
             <Route
               path="OrderConfirmed/:OrderId"
               element={<OrderConfirmed></OrderConfirmed>}
+            ></Route>
+            <Route
+              path="OrderDetails/:OrderId"
+              element={<OrderDetails></OrderDetails>}
+            ></Route>
+             <Route
+              path="AllOrders"
+              element={<AllOrders></AllOrders>}
             ></Route>
           </Route>
           <Route path="*" element={<NotFound></NotFound>}></Route>

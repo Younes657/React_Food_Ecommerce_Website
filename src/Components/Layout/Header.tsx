@@ -7,6 +7,7 @@ import {
   initialState,
   setLoggedInUser,
 } from "../../Storage/Redux/Slice/AuthentiacationSlice";
+import { SD_Roles } from "../../Utility/SD";
 let logo = require("../../Assets/Images/mango.png");
 function Header() {
   const ItemCarts: ItemCartModel[] = useSelector(
@@ -15,6 +16,7 @@ function Header() {
   const userData: UserModel = useSelector(
     (state: RootState) => state.authentiacationStore
   );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -61,34 +63,36 @@ function Header() {
                 Orders
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="/"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="/">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="/">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="/">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
+            {userData.role === SD_Roles.Admin ? (
+               <li className="nav-item dropdown">
+               <a
+                 className="nav-link dropdown-toggle"
+                 href="/"
+                 role="button"
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false"
+               >
+                 Admin Panel
+               </a>
+               <ul className="dropdown-menu">
+                 <li>
+                   <NavLink className="dropdown-item" to="/Order/AllOrders">
+                     All Orders
+                   </NavLink>
+                 </li>
+                 <li>
+                   <a className="dropdown-item" href="/">
+                     Menu Items
+                   </a>
+                 </li>
+                 <li>
+                   <a className="dropdown-item" href="/">
+                     Something else here
+                   </a>
+                 </li>
+               </ul>
+             </li>
+            ) : (<></>)}
             <div className=" d-flex" style={{ marginLeft: "auto" }}>
               {userData.sub && (
                 <>

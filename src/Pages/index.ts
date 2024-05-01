@@ -7,4 +7,5 @@ import Register from "./Register";
 import Payment from "./Payment";
 import OrderConfirmed from "./Order/OrderConfirmed";
 import UserOrders from "./Order/UserOrders";
-export {Home, NotFound , MenuItemDetails, ShoppingCart , Login , Register , Payment , OrderConfirmed , UserOrders}
+import AllOrders from "./Order/AllOrders";
+export {Home, NotFound , MenuItemDetails, ShoppingCart , Login , Register , Payment , OrderConfirmed , UserOrders , AllOrders}
