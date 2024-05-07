@@ -11,6 +11,8 @@ import {
   Register,
   ShoppingCart,
   AllOrders,
+  MenuItemList,
+  MenuItemUpsert,
 } from "../Pages";
 import { Routes, Route } from "react-router-dom";
 import { useGetShoppingCartQuery } from "../Api/ShoppingCartApi";
@@ -86,6 +88,11 @@ function App() {
               path="AllOrders"
               element={<AllOrders></AllOrders>}
             ></Route>
+          </Route>
+          <Route path="MenuItem">
+            <Route path="" element={<MenuItemList></MenuItemList>}></Route>
+            <Route path="UpsertItem/:itemId" element={<MenuItemUpsert></MenuItemUpsert>}></Route>
+            <Route path="UpsertItem" element={<MenuItemUpsert></MenuItemUpsert>}></Route>
           </Route>
           <Route path="*" element={<NotFound></NotFound>}></Route>
         </Routes>

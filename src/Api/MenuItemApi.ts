@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+
 export const MenuItemApi = createApi({
   reducerPath: "MenuItemApi", //just a name //a key used to create a slice
   baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7034/api/" }),
@@ -22,8 +23,31 @@ export const MenuItemApi = createApi({
         }),
         providesTags: ["MenuItems"],
       }),
+    createMenuItem: builder.mutation({
+      query: (menuItem ) =>( {
+        url : "MenuItem",
+        method : "POST",
+        body: menuItem
+      }),
+      invalidatesTags : ["MenuItems"],
+    }),
+    updateMenuItem: builder.mutation({
+      query: ({data , id} ) =>( {
+        url : "MenuItem/"+ id,
+        method : "PUT",
+        body: data
+      }),
+      invalidatesTags : ["MenuItems"],
+    }),
+    deleteMenuItem: builder.mutation({
+      query: (menuItemId) =>( {
+        url : "MenuItem/" + menuItemId,
+        method : "DELETE"
+      }),
+      invalidatesTags : ["MenuItems"],
+    }),
   }),
 });
 
-export const { useGetAllMenuItemsQuery,useGetMenuItemQuery} = MenuItemApi
+export const { useGetAllMenuItemsQuery,useGetMenuItemQuery , useCreateMenuItemMutation , useUpdateMenuItemMutation , useDeleteMenuItemMutation} = MenuItemApi
 // query means a get request

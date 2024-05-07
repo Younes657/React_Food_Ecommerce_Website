@@ -81,9 +81,9 @@ function Header() {
                    </NavLink>
                  </li>
                  <li>
-                   <a className="dropdown-item" href="/">
-                     Menu Items
-                   </a>
+                 <NavLink className="dropdown-item" to="/MenuItem">
+                    Menu Items
+                   </NavLink>
                  </li>
                  <li>
                    <a className="dropdown-item" href="/">
