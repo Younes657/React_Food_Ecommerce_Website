@@ -4,6 +4,10 @@ const OrderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://localhost:7034/api/",
+    prepareHeaders:(headers : Headers, api) =>{
+      const Token = localStorage.getItem("Token");
+      Token && headers.append("Authorization","Bearer " + Token)
+    }
   }),
   tagTypes:["orders"],
   endpoints: (builder) => ({

@@ -1,11 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const MenuItemApi = createApi({
   reducerPath: "MenuItemApi", //just a name //a key used to create a slice
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7034/api/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://localhost:7034/api/",
+    prepareHeaders: (headers: Headers, api) => {
+      const Token = localStorage.getItem("Token");
+      Token && headers.append("Authorization", "Bearer " + Token);
+    },
+  }),
 
-  tagTypes:["MenuItems"],
+  tagTypes: ["MenuItems"],
 
   endpoints: (builder) => ({
     getAllMenuItems: builder.query({
@@ -15,39 +20,45 @@ export const MenuItemApi = createApi({
       }),
       providesTags: ["MenuItems"],
     }),
-    
+
     getMenuItem: builder.query({
-        query: (id) => ({
-          url: `MenuItem/${id}`,
-          method: "GET",
-        }),
-        providesTags: ["MenuItems"],
+      query: (id) => ({
+        url: `MenuItem/${id}`,
+        method: "GET",
       }),
+      providesTags: ["MenuItems"],
+    }),
     createMenuItem: builder.mutation({
-      query: (menuItem ) =>( {
-        url : "MenuItem",
-        method : "POST",
-        body: menuItem
+      query: (menuItem) => ({
+        url: "MenuItem",
+        method: "POST",
+        body: menuItem,
       }),
-      invalidatesTags : ["MenuItems"],
+      invalidatesTags: ["MenuItems"],
     }),
     updateMenuItem: builder.mutation({
-      query: ({data , id} ) =>( {
-        url : "MenuItem/"+ id,
-        method : "PUT",
-        body: data
+      query: ({ data, id }) => ({
+        url: "MenuItem/" + id,
+        method: "PUT",
+        body: data,
       }),
-      invalidatesTags : ["MenuItems"],
+      invalidatesTags: ["MenuItems"],
     }),
     deleteMenuItem: builder.mutation({
-      query: (menuItemId) =>( {
-        url : "MenuItem/" + menuItemId,
-        method : "DELETE"
+      query: (menuItemId) => ({
+        url: "MenuItem/" + menuItemId,
+        method: "DELETE",
       }),
-      invalidatesTags : ["MenuItems"],
+      invalidatesTags: ["MenuItems"],
     }),
   }),
 });
 
-export const { useGetAllMenuItemsQuery,useGetMenuItemQuery , useCreateMenuItemMutation , useUpdateMenuItemMutation , useDeleteMenuItemMutation} = MenuItemApi
+export const {
+  useGetAllMenuItemsQuery,
+  useGetMenuItemQuery,
+  useCreateMenuItemMutation,
+  useUpdateMenuItemMutation,
+  useDeleteMenuItemMutation,
+} = MenuItemApi;
 // query means a get request
