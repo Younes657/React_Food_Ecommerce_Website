@@ -10,15 +10,20 @@ function UserOrders() {
   const userId = useSelector(
     (state: RootState) => state.authentiacationStore.sub
   );
-  const { data, isLoading } = useGetAllOrdersQuery(userId);
+  const { data, isLoading } = useGetAllOrdersQuery({ userId : userId});
 
   return (
     <>
-      {isLoading && <MainLoader></MainLoader>}
-      {!isLoading && (
-        <OrderList isLoading={isLoading} Orders={data.result}></OrderList>
-      )}
-    </>
+        {isLoading && <MainLoader></MainLoader>}
+        {!isLoading && (
+          <>
+          <div className=' d-flex justify-content-between align-items-center mx-5 mt-5'>
+          <h1 className="text-success">Orders List</h1>
+          </div>
+          <OrderList isLoading={isLoading} Orders={data?.apiResponse.result}></OrderList>
+          </>
+        )}
+      </>
   );
 }
 

@@ -9,13 +9,11 @@ type props = {
   isLoading: boolean;
 };
 function OrderList({ Orders, isLoading }: props) {
-  
   return (
     <>
       {isLoading && <MainLoader></MainLoader>}
       {!isLoading && (
-        <div className="container p-5">
-          <h1 className="text-success">Orders List</h1>
+        <div className=" container-fluid px-5">
           <div className=" table-responsive">
             <table className="table table-striped">
               <thead>
